@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './App.css';
 
 function App() {
   const [input, setInput] = useState('');
@@ -32,15 +33,27 @@ const deleteCheckedTasks = () => {
 };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>ToDoアプリ</h1>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="タスクを入力"
-      />
-      <button onClick={addTask}>追加</button>
+    <div className="terminal">
+      <header className="prompt">
+        404: Task Not Found<span className="cursor" />
+      </header>
+      {/*入力エリア */}
+      <form
+        className="input-line"
+        onSubmit={(e)=>{
+          e.preventDefault();
+          /*addtask()を呼ぶ */
+        }}
+      >
+        <span className="dollar">$</span>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="タスクを入力"
+          />
+          <button onClick={addTask}>add</button>
+      </form>
 
       <table>
         <thead>

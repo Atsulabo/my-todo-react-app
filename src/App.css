@@ -1,38 +1,116 @@
-.App {
+/* ---------- ベース ---------- */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  background-color: #0d0d0d; /* 真っ黒に近い */
+  color: #00ff00;            /* ターミナル緑 */
+  font-family: "Courier New", monospace;
+}
+
+/* 中央揃え＋幅制御 */
+.terminal {
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 0 20px;
+  line-height: 1.4;
+}
+
+/* ---------- タイトル行 ---------- */
+.prompt {
+  font-size: 2rem;
+  font-weight: bold;
   text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* 点滅カーソル */
+.cursor::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 0.7em;
+  background: #00ff00;
+  margin-left: 4px;
+  animation: blink 1s steps(2, start) infinite;
+}
+@keyframes blink {
+  to { visibility: hidden; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* ---------- 入力ライン ---------- */
+.input-line {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+.input-line .dollar {
+  color: #00ff00;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-line input {
+  flex: 1;
+  min-width: 220px;
+  padding: 6px 8px;
+  background: #1a1a1a;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+}
+
+.input-line button {
+  background: #444;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.input-line button:hover {
+  background: #555;
+}
+
+/* ---------- タスクテーブル ---------- */
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.task-table th,
+.task-table td {
+  border: 1px solid #00ff00;
+  padding: 8px;
+  word-break: break-word;
+}
+.task-table th {
+  background: #1a1a1a;
+}
+.task-table button {
+  background: #444;
+  color: #00ff00;
+  border: none;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.task-table button:hover {
+  background: #555;
+}
+
+/* ---------- チェックボックス大きめ＋緑 ---------- */
+input[type="checkbox"] {
+  transform: scale(1.25);
+  accent-color: #00ff00;
+}
+
+/* ---------- スクロールバー（Chrome系）黒緑化（お好みで） ---------- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #00ff00;
 }

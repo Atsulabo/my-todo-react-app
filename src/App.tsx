@@ -20,10 +20,15 @@ function App() {
   }
 };
 
-
 const deleteTask = (indexToDelete: number) => {
   const newTasks = tasks.filter((_, i) => i !== indexToDelete);
   setTasks(newTasks);
+};
+
+const deleteCheckedTasks = () => {
+  const newTasks = tasks.filter((_, index) => !checkedIndexes.includes(index));
+  setTasks(newTasks);
+  setCheckedIndexes([]); // チェック状態もリセット
 };
 
   return (
@@ -63,6 +68,7 @@ const deleteTask = (indexToDelete: number) => {
           ))}
         </tbody>
       </table>
+      <button onClick={deleteCheckedTasks}>チェック済みを削除</button>
     </div>
   );
 }

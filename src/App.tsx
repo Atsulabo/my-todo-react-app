@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 function App() {
   const [input, setInput] = useState('');
   const [tasks, setTasks] = useState<string[]>([]);
+  const [checkedIndexes, setCheckedIndexes] = useState<number[]>([]);
 
   const addTask = () => {
     if (input.trim()) {
@@ -10,6 +11,16 @@ function App() {
       setInput('');
     }
   };
+
+  const toggleCheck = (index: number) => {
+  if (checkedIndexes.includes(index)) {
+    setCheckedIndexes(checkedIndexes.filter(i => i !== index));
+  } else {
+    setCheckedIndexes([...checkedIndexes, index]);
+  }
+};
+
+
 
   return (
     <div style={{ padding: '20px' }}>
@@ -32,7 +43,13 @@ function App() {
         <tbody>
           {tasks.map((task, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={checkedIndexes.includes(index)}
+                  onChange={() => toggleCheck(index)}
+                />
+              </td>
               <td>{task}</td>
             </tr>
           ))}

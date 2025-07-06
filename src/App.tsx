@@ -21,6 +21,10 @@ function App() {
 };
 
 
+const deleteTask = (indexToDelete: number) => {
+  const newTasks = tasks.filter((_, i) => i !== indexToDelete);
+  setTasks(newTasks);
+};
 
   return (
     <div style={{ padding: '20px' }}>
@@ -50,7 +54,11 @@ function App() {
                   onChange={() => toggleCheck(index)}
                 />
               </td>
+              <td>{index + 1}</td>
               <td>{task}</td>
+              <td>
+                  <button onClick={() => deleteTask(index)}>🗑</button>
+              </td>
             </tr>
           ))}
         </tbody>

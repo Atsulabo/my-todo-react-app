@@ -88,7 +88,7 @@ const deleteCheckedTasks = () => {
         </table>
       )}
 
-      <button onClick={deleteCheckedTasks}>チェック済みを削除</button>
+      <button className="terminal-button" onClick={deleteCheckedTasks}> $ delete checked tasks</button>
     </div>
   );
 }

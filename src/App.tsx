@@ -54,9 +54,14 @@ const deleteCheckedTasks = () => {
           />
           <button onClick={addTask}>add</button>
       </form>
-
-      <table>
-        <thead>
+      {tasks.length === 0 ? (
+          <p className="empty-message">
+            <span className="inline-prompt">$</span> echo "No tasks found. You’re free! 🎉"
+          </p>
+      ) : (
+          <table className="task-table">
+            {/* ここにタスクの一覧行など */}
+          <thead>
           <tr>
             <th>#</th>
             <th>タスク</th>
@@ -80,7 +85,9 @@ const deleteCheckedTasks = () => {
             </tr>
           ))}
         </tbody>
-      </table>
+        </table>
+      )}
+
       <button onClick={deleteCheckedTasks}>チェック済みを削除</button>
     </div>
   );

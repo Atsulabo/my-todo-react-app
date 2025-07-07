@@ -26,7 +26,11 @@ body {
   letter-spacing: 1px;
   position: relative;
 }
-
+.empty-message .inline-prompt {
+  color: #00ff00;
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
 /* 点滅カーソル */
 .cursor::after {
   content: "";

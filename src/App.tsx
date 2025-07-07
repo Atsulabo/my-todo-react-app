@@ -59,38 +59,27 @@ const deleteCheckedTasks = () => {
             <span className="inline-prompt">$</span> echo "No tasks found. You’re free! 🎉"
           </p>
       ) : (
-          <table className="task-table">
-            {/* ここにタスクの一覧行など */}
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>タスク</th>
-          </tr>
-        </thead>
-        <tbody>
+          <>
           {tasks.map((task, index) => (
-            <tr key={index}>
-              <td>
-                <input
-                  type="checkbox"
-                  checked={checkedIndexes.includes(index)}
-                  onChange={() => toggleCheck(index)}
-                />
-              </td>
-              <td>{index + 1}</td>
-              <td>{task}</td>
-              <td>
-                  <button onClick={() => deleteTask(index)}>🗑</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-        </table>
-      )}
+          <div className="task-line" key={index}>
+            <span
+                className="check-symbol"
+                onClick={() => toggleCheck(index)}
+            >
+                [{checkedIndexes.includes(index) ? 'x' : ' '}]  
+            </span>
+            <span className="task-text">{task}</span>
+            <button className="del-btn" onClick={() => deleteTask(index)}>Delete</button>
+          </div>
+        ))}
+        <button className="terminal-button" onClick={deleteCheckedTasks}>
+          $ delete checked tasks
+        </button>
+  </>
+)}
 
-      <button className="terminal-button" onClick={deleteCheckedTasks}> $ delete checked tasks</button>
-    </div>
-  );
+</div>
+);
 }
 
 export default App;

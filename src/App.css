@@ -80,35 +80,48 @@ body {
   background: #555;
 }
 
-/* ---------- タスクテーブル ---------- */
-.task-table {
-  width: 100%;
-  border-collapse: collapse;
+.task-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* ← コレがポイント！ */
+  font-family: 'Courier New', monospace;
+  padding: 6px 0;
+  border-bottom: 1px dotted #00ff00;
 }
-.task-table th,
-.task-table td {
-  border: 1px solid #00ff00;
-  padding: 8px;
-  word-break: break-word;
-}
-.task-table th {
-  background: #1a1a1a;
-}
-.task-table button {
-  background: #444;
+
+.task-text {
+  flex-grow: 1;
+  margin-left: 8px;
   color: #00ff00;
-  border: none;
-  padding: 4px 10px;
-  cursor: pointer;
 }
-.task-table button:hover {
-  background: #555;
+
+.del-btn {
+  background: transparent;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  font-family: 'Courier New', monospace;
+  padding: 2px 6px;
+  margin-left: 8px;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.del-btn:hover {
+  background: #00ff00;
+  color: black;
+}
+.task-line:hover .del-btn {
+  opacity: 1;
 }
 
 /* ---------- チェックボックス大きめ＋緑 ---------- */
-input[type="checkbox"] {
-  transform: scale(1.25);
-  accent-color: #00ff00;
+.check-symbol {
+  cursor: pointer;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  margin-right: 8px;
+  user-select: none;
 }
 
 /* ---------- スクロールバー（Chrome系）黒緑化（お好みで） ---------- */

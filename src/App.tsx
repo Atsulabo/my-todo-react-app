@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
   const [input, setInput] = useState('');
   const [tasks, setTasks] = useState<string[]>([]);
   const [checkedIndexes, setCheckedIndexes] = useState<number[]>([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const addTask = () => {
     if (input.trim()) {
@@ -32,6 +33,41 @@ const deleteCheckedTasks = () => {
   setCheckedIndexes([]); // チェック状態もリセット
 };
 
+// 副作用
+// 初回マウント時の読み込み
+useEffect(() => {
+  try {
+    const savedTasks = localStorage.getItem('tasks');
+    const savedChecked = localStorage.getItem('checked');
+
+    if (savedTasks) {
+      const parsedTasks = JSON.parse(savedTasks);
+      if (Array.isArray(parsedTasks)) setTasks(parsedTasks);
+    }
+
+    if (savedChecked) {
+      const parsedChecked = JSON.parse(savedChecked);
+      if (Array.isArray(parsedChecked)) setCheckedIndexes(parsedChecked);
+    }
+  } catch (e) {
+    console.error("読み込みエラー:", e);
+    setTasks([]);
+    setCheckedIndexes([]);
+  } finally {
+    setHasLoaded(true);
+  }
+}, []);
+
+
+// タスク・チェック状態が変更されたら保存
+// 保存用 useEffect：hasLoaded が true のときだけ保存！
+useEffect(() => {
+  if (hasLoaded) {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('checked', JSON.stringify(checkedIndexes));
+  }
+}, [tasks, checkedIndexes, hasLoaded]);
+
   return (
     <div className="terminal">
       <header className="prompt">
@@ -42,7 +78,7 @@ const deleteCheckedTasks = () => {
         className="input-line"
         onSubmit={(e)=>{
           e.preventDefault();
-          /*addtask()を呼ぶ */
+          addTask();
         }}
       >
         <span className="dollar">$</span>
@@ -66,18 +102,17 @@ const deleteCheckedTasks = () => {
                 className="check-symbol"
                 onClick={() => toggleCheck(index)}
             >
-                [{checkedIndexes.includes(index) ? 'x' : ' '}]  
+                [{checkedIndexes.includes(index) ? 'x' : ' '}]
             </span>
             <span className="task-text">{task}</span>
             <button className="del-btn" onClick={() => deleteTask(index)}>Delete</button>
           </div>
         ))}
         <button className="terminal-button" onClick={deleteCheckedTasks}>
-          $ delete checked tasks
+          $ delete&nbsp;checked&nbsp;tasks
         </button>
   </>
 )}
-
 </div>
 );
 }
